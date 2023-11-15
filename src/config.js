@@ -1,4 +1,5 @@
 import { config } from "dotenv";
+import { Configuration, OpenAIApi } from "openai";
 
 config();
 

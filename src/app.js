@@ -5,6 +5,7 @@ import { create } from "express-handlebars";
 
 // routes
 import indexRoutes from "./routes/tasks.routes";
+import promptRoutes from "./routes/prompt.routes";
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use(indexRoutes);
+app.use(promptRoutes);
 
 // public route
 app.use(express.static(path.join(__dirname, "public")));

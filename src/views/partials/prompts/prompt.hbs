@@ -1,0 +1,20 @@
+<div class="card card-body p-4 rounded-0 bg-dark text-white">
+  <h3>Send your perfect prompt!</h3>
+  <form action="/prompt/send" method="post">
+
+    {{! Idea Input }}
+    <div class="mb-3">
+      <label for="idea">Idea:</label>
+      <input
+        id="idea"
+        class="form-control rounded-0 bg-dark text-white"
+        type="text"
+        name="idea"
+        placeholder="Idea"
+        autofocus
+      />
+    </div>
+    
+    <button class="btn btn-primary" type="submit">Add</button>
+  </form>
+</div>
