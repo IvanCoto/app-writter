@@ -2,7 +2,11 @@ import { Schema, model } from "mongoose";
 
 const PromptSchema = Schema(
   {
-    idea: { type: String, required: true, trim: true, unique: true },
+    contentType: { type: String, required: true, trim: true },
+    title: { type: String, required: true, trim: true },
+    characters: { type: String, required: true, trim: true },
+    tone: { type: String, required: true, trim: true },
+    category: { type: String, required: true, trim: true },
   },
   {
     timestamps: true,
@@ -10,4 +14,4 @@ const PromptSchema = Schema(
   }
 );
 
-export default model("prompt", PromptSchema);
+export default model("Prompt", PromptSchema);

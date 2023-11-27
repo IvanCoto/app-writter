@@ -1,12 +1,18 @@
-<div class="container p-5">
-  <div class="row">
-
-    <div class="col-md-5">
-      {{> tasks/taskForm }} <!-- Estos son componentes que se crearon en partials -->
+<body>
+  <div class="container mt-5 text-white">
+    <!-- Agrega la imagen aquí -->
+    <h1 class="text-center mb-4">¡Bienvenido al Generador de Historias!</h1>
+    </br>
+    <p class="lead text-center">¿Estás listo para dejar que la creatividad fluya? ¡Haz clic en el botón para generar
+      historias emocionantes!</p>
+    </br>
+    <div class="text-center mb-4">
+      <a href="/prompts" class="btn btn-primary btn-lg">Generar Historias</a>
     </div>
+    </br>
 
-    <div class="col-md-7">
-      {{> tasks/taskTable }} <!-- Estos son componentes que se crearon en partials -->
+    <div class="text-center mb-4">
+      <img src="/img/cuentos.jpg" alt="Imagen cuentos" width="300" height="300">
     </div>
   </div>
-</div>
+</body>

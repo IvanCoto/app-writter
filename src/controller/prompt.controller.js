@@ -1,4 +1,5 @@
 import Prompt from "../model/prompt";
+import Story from "../model/story";
 require("dotenv").config();
 const OpenAI = require("openai").OpenAI;
 
@@ -19,6 +20,7 @@ export const renderPrompts = async (req, res) => {
     }
 };
 
+/*
 export const createPrompt = async (req, res, next) => {
     try {
         const { idea } = req.body;
@@ -33,27 +35,64 @@ export const createPrompt = async (req, res, next) => {
         res.render("error", { errorMessage: error.message });
     }
 };
-
-async function generateStory(idea) {
-    
+*/
+export const createPrompt = async (req, res, next) => {
     try {
+        const { contentType, title, characters, tone, category, switchAutoTitle, switchAutoCharacters, switchAutoTone, switchAutoCategory } = req.body;
 
-        const response = await await openai.chat.completions.create({
+        // Lógica para determinar si el campo es automático o manual
+        const titleInput = switchAutoTitle === "true" ? "Generar Titulo Automático" : title;
+        const charactersInput = switchAutoCharacters === "true" ? "Generar Personajes Automático" : characters;
+        const toneInput = switchAutoTone === "true" ? "Generar Tono Automático" : tone;
+        const categoryInput = switchAutoCategory === "true" ? "Generar Categoría Automático" : category;
+
+        const prompt = new Prompt({
+            contentType: contentType,
+            title: titleInput,
+            characters: charactersInput,
+            tone: toneInput,
+            category: categoryInput,
+        });
+
+        await prompt.save();
+
+        // Genera la historia
+        const story = await generateStory({
+            contentType: contentType,
+            title: titleInput,
+            characters: charactersInput,
+            tone: toneInput,
+            category: categoryInput,
+        });
+
+        // Renderiza la vista con la historia generada
+        res.render("prompts", { story });
+
+    } catch (error) {
+        console.error(error);
+        res.render("error", { errorMessage: error.message });
+    }
+};
+
+async function generateStory({ contentType, title, characters, tone, category }) {
+    try {
+        const response = await openai.chat.completions.create({
             messages: [
-                { role: "system", content: "You are a helpful writter." },
-                { role: "user", content: `Create a story about: ${idea}` }
+                { role: "system", content: "Eres un exelente escritor." },
+                { role: "user", content: `Crea un ${contentType} con titulo: ${title} con los personajes: ${characters}, tono de la historia: ${tone}, y la categoria: ${category}. Cuando indica "Automatico" quiere decir que le genere ese campo con autoria propia` },
             ],
             model: "gpt-3.5-turbo",
         });
 
-        return response.choices[0].message.content.trim();
+        const story = new Story({
+            content: response.choices[0].message.content.trim(),
+        });
 
+        await story.save();
+
+        return response.choices[0].message.content.trim();
     } catch (error) {
-      console.error('Error al generar la historia:', error);
-      throw error;
+        console.error('Error al generar la historia:', error);
+        throw error;
     }
 }
-
-
-
-

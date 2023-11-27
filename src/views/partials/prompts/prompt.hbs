@@ -1,20 +1,92 @@
 <div class="card card-body p-4 rounded-0 bg-dark text-white">
-  <h3>Send your perfect prompt!</h3>
-  <form action="/prompt/send" method="post">
-
-    {{! Idea Input }}
-    <div class="mb-3">
-      <label for="idea">Idea:</label>
-      <input
-        id="idea"
-        class="form-control rounded-0 bg-dark text-white"
-        type="text"
-        name="idea"
-        placeholder="Idea"
-        autofocus
-      />
+  <div class="mb-3">
+    <h3>Crea tu historia con ayuda de los siguientes elementos: </h3>
+  </div>
+  <form id="storyForm" action="/prompt/send" method="post">
+    <!-- Tipo de Contenido -->
+    <div class="mb-4">
+      <label for="contentType" class="form-label fs-4">Tipo de Contenido:</label>
+      <select id="contentType" class="form-select rounded-0 bg-dark text-white" name="contentType" required>
+        <option value="cuento_corto">Cuento corto</option>
+        <option value="guion">Guión</option>
+        <option value="contenido_narrativo">Contenido Narrativo</option>
+        <!-- Agrega más opciones según sea necesario -->
+      </select>
     </div>
-    
-    <button class="btn btn-primary" type="submit">Add</button>
+
+    <!-- Título -->
+    <div class="mb-4">
+      <label for="title" class="form-label fs-4">Título:</label>
+      <div class="mb-3">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="manualSwitchTitle"
+            onclick="toggleManualInput('title', 'manualSwitchTitle')" />
+          <label class="form-check-label" for="manualSwitchTitle">Generar Título automático</label>
+        </div>
+      </div>
+      <input id="title" class="form-control rounded-0 bg-dark text-white" type="text" name="title"
+        placeholder="Título de la historia" autofocus required>
+    </div>
+
+    <!-- Personajes -->
+    <div class="mb-4">
+      <label for="characters" class="form-label fs-4">Personajes:</label>
+      <div class="mb-3">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="manualSwitchCharacters"
+            onclick="toggleManualInput('characters', 'manualSwitchCharacters')" />
+          <label class="form-check-label" for="manualSwitchCharacters">Generar Personajes automático</label>
+        </div>
+      </div>
+      <input id="characters" class="form-control rounded-0 bg-dark text-white" type="text" name="characters"
+        placeholder="Personajes de la historia" autofocus required>
+    </div>
+
+    <!-- Tono de la Historia -->
+    <div class="mb-4">
+      <label for="tone" class="form-label fs-4">Tono:</label>
+      <div class="mb-3">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="manualSwitchTone"
+            onclick="toggleManualInput('tone', 'manualSwitchTone')" />
+          <label class="form-check-label" for="manualSwitchTone">Generar Tono Aleatorio</label>
+        </div>
+      </div>
+      <select id="tone" class="form-select rounded-0 bg-dark text-white" name="tone">
+        <option value="oscuro">Oscuro</option>
+        <option value="humorístico">Humorístico</option>
+        <option value="emocional">Emocional</option>
+        <!-- Agrega más opciones según sea necesario -->
+      </select>
+    </div>
+
+    <!-- Categoría de la Historia -->
+    <div class="mb-4">
+      <label for="category" class="form-label fs-4">Categoría:</label>
+      <div class="mb-3">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="manualSwitchCategory"
+            onclick="toggleManualInput('category', 'manualSwitchCategory')" />
+          <label class="form-check-label" for="manualSwitchCategory">Generar Categoría Aleatoria</label>
+        </div>
+      </div>
+      <select id="category" class="form-select rounded-0 bg-dark text-white" name="category">
+        <option value="suspenso">Suspenso</option>
+        <option value="terror">Terror</option>
+        <option value="niños">Niños</option>
+        <option value="animados">Animados</option>
+        <option value="romance">Romance</option>
+        <option value="ciencia_ficción">Ciencia Ficción</option>
+        <!-- Agrega más opciones según sea necesario -->
+      </select>
+    </div>
+
+    <!-- Campos ocultos para los valores de los interruptores -->
+    <input type="hidden" id="switchAutoTitle" name="switchAutoTitle" value="false" />
+    <input type="hidden" id="switchAutoCharacters" name="switchAutoCharacters" value="false" />
+    <input type="hidden" id="switchAutoTone" name="switchAutoTone" value="false" />
+    <input type="hidden" id="switchAutoCategory" name="switchAutoCategory" value="false" />
+
+    <button class="btn btn-primary" type="submit">Generar historia</button>
   </form>
 </div>
