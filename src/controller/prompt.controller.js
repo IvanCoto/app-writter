@@ -20,22 +20,6 @@ export const renderPrompts = async (req, res) => {
     }
 };
 
-/*
-export const createPrompt = async (req, res, next) => {
-    try {
-        const { idea } = req.body;
-        const prompt = new Prompt({ idea });
-        await prompt.save();
-
-        const story = await generateStory(idea);
-        res.render("prompts", { story });
-
-    } catch (error) {
-        console.error(error);
-        res.render("error", { errorMessage: error.message });
-    }
-};
-*/
 export const createPrompt = async (req, res, next) => {
     try {
         const { contentType, title, characters, tone, category, switchAutoTitle, switchAutoCharacters, switchAutoTone, switchAutoCategory } = req.body;
@@ -65,8 +49,8 @@ export const createPrompt = async (req, res, next) => {
             category: categoryInput,
         });
 
-        // Renderiza la vista con la historia generada
-        res.render("prompts", { story });
+        // Renderiza la vista con la historia generada y desactiva el loader
+        res.render("prompts", { story, isLoading: false });
 
     } catch (error) {
         console.error(error);
@@ -79,7 +63,7 @@ async function generateStory({ contentType, title, characters, tone, category })
         const response = await openai.chat.completions.create({
             messages: [
                 { role: "system", content: "Eres un exelente escritor." },
-                { role: "user", content: `Crea un ${contentType} con titulo: ${title} con los personajes: ${characters}, tono de la historia: ${tone}, y la categoria: ${category}. Cuando indica "Automatico" quiere decir que le genere ese campo con autoria propia` },
+                { role: "user", content: `Crea un ${contentType} con titulo: ${title} con los personajes: ${characters}, tono de la historia: ${tone}, y la categoria: ${category}. Cuando indica "Automatico" quiere decir que le genere ese campo con autoria propia. Idioma: Español` },
             ],
             model: "gpt-3.5-turbo",
         });

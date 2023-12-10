@@ -1,11 +1,13 @@
 {{#if story}}
-<div class="card card-body p-4 rounded-0 bg-dark text-white">{{ story }}</div>
+<div class="card card-body p-4 rounded-0 bg-dark text-white"
+  style="white-space: pre-line; overflow-y: auto; max-height: 550px;">
+  <p class="mb-0" style="font-size: 16px; line-height: 1.5; text-align: justify;">{{{story}}}</p>
+</div>
 {{else}}
 <div class="h-100 d-flex align-items-center justify-content-center">
   <div class="text-center text-white">
-    <h1>Sin historias</h1>
+    <h1>Sin historia</h1>
     <img src="/img/emptyBook.png" class="w-50" />
   </div>
-
 </div>
 {{/if}}

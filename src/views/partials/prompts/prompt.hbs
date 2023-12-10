@@ -1,4 +1,4 @@
-<div class="card card-body p-4 rounded-0 bg-dark text-white">
+<div class="card card-body p-4 rounded-0 bg-dark text-white" style="overflow-y: auto; max-height: 550px;">
   <div class="mb-3">
     <h3>Crea tu historia con ayuda de los siguientes elementos: </h3>
   </div>
@@ -87,6 +87,13 @@
     <input type="hidden" id="switchAutoTone" name="switchAutoTone" value="false" />
     <input type="hidden" id="switchAutoCategory" name="switchAutoCategory" value="false" />
 
-    <button class="btn btn-primary" type="submit">Generar historia</button>
+    <button class="btn btn-primary" type="submit" onclick="startGeneratingHistory()">Generar historia</button>
   </form>
+  <div class="loader {{#if isLoading}}active{{/if}}">
+    <h1>Generando historia</h1>
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    </br>
+  </div>
 </div>
